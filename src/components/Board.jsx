@@ -81,8 +81,12 @@ export default function Game() {
   const winner = calculateWinner(squares); // Check if there's a winner
   let winningStatus;
 
+  // Check if all squares are filled and there's no winner
+  const isGameOver = squares.every((square) => square !== null);
   if (winner) {
     winningStatus = `Winner is: ${winner} 🥳`; // Display the winner
+  } else if (isGameOver) {
+    winningStatus = "Game over and there is no winner 😭"; // Display game over with no winner
   } else {
     winningStatus = `Next Player is ${turn ? "X" : "O"}`; // Display next player's turn
   }
@@ -104,11 +108,16 @@ export default function Game() {
   // Render the game components
   return (
     <>
-      <Board
-        winningStatus={winningStatus}
-        squares={squares}
-        handleClick={handleClick}
-      />
+      <div>
+        <Board
+          winningStatus={winningStatus}
+          squares={squares}
+          handleClick={handleClick}
+        />
+      </div>
+      <div>
+        <ol></ol> {/* Reserved for game moves history */}
+      </div>
     </>
   );
 }
